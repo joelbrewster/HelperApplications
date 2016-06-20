@@ -1,0 +1,7 @@
+#!/bin/sh -e
+#
+# Causes Vim instances in current tmux window to redraw themselves.
+
+tmux list-panes -F '#{pane_id} #{pane_current_command}' |
+awk '$2 ~ /vim/ { print $1 }' |
+xargs -rI% tmux send-keys -t% C-l
